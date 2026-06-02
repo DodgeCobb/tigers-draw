@@ -1,0 +1,398 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Helensburgh Draw Tracker",
+  "schemaVersion": 1,
+  "description": "Live draw tracker for all 5 Helensburgh Tigers teams in 2026 — Harrigan Plate, Open Women, U18 Gold, OLLT Div 1, OLLT Div 2. Shows results, scores, and upcoming fixtures. Calendar view combines all teams. Updated every Sunday at 1am from MySideline."
+}
+</script>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helensburgh Tigers – 2026 Draw Tracker</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f4f6f9; color: #1a1a2e; font-size: 14px; }
+
+    header { background: #1a1a2e; color: #fff; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
+    header h1 { font-size: 18px; font-weight: 700; letter-spacing: 0.3px; }
+    header h1 span { color: #f0a500; }
+    #last-updated { font-size: 11px; color: #aaa; margin-top: 2px; }
+
+    .tabs { display: flex; gap: 0; background: #fff; border-bottom: 2px solid #e0e0e0; overflow-x: auto; }
+    .tab-btn { padding: 10px 16px; border: none; background: none; font-size: 12px; font-weight: 600; color: #666; cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.15s; }
+    .tab-btn:hover { color: #1a1a2e; background: #f9f9f9; }
+    .tab-btn.active { color: #1a1a2e; border-bottom-color: #f0a500; }
+
+    .tab-content { display: none; padding: 16px 20px; }
+    .tab-content.active { display: block; }
+
+    .record-bar { display: flex; gap: 8px; margin-bottom: 14px; align-items: center; flex-wrap: wrap; }
+    .record-pill { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+    .pill-w { background: #d4edda; color: #155724; }
+    .pill-l { background: #f8d7da; color: #721c24; }
+    .pill-d { background: #fff3cd; color: #856404; }
+    .pill-p { background: #cce5ff; color: #004085; }
+    .next-label { font-size: 11px; color: #888; margin-left: auto; }
+
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    thead tr { background: #1a1a2e; color: #fff; }
+    th { padding: 9px 12px; text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+    td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; font-size: 12px; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+
+    .result-badge { display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; border-radius: 4px; font-size: 11px; font-weight: 700; }
+    .badge-w { background: #d4edda; color: #155724; }
+    .badge-l { background: #f8d7da; color: #721c24; }
+    .badge-d { background: #fff3cd; color: #856404; }
+    .badge-ff { background: #e2e3e5; color: #383d41; }
+    .badge-bye { background: #e2e3e5; color: #383d41; font-size: 9px; width: auto; padding: 0 6px; }
+    .badge-wo { background: #d1ecf1; color: #0c5460; font-size: 9px; width: auto; padding: 0 6px; }
+
+    .score-cell { font-weight: 700; font-size: 13px; }
+    .score-win { color: #155724; }
+    .score-loss { color: #721c24; }
+    .score-draw { color: #856404; }
+
+    tr.row-next { background: #fffbec; }
+    tr.row-next td { border-left: 3px solid #f0a500; }
+    tr.row-next td:first-child { padding-left: 9px; }
+    tr.row-bye { background: #fafafa; color: #aaa; }
+    tr.row-bye td { color: #aaa; font-style: italic; }
+
+    .ha-badge { display: inline-block; width: 18px; height: 18px; line-height: 18px; text-align: center; border-radius: 3px; font-size: 10px; font-weight: 700; }
+    .ha-h { background: #cce5ff; color: #004085; }
+    .ha-a { background: #e2e3e5; color: #383d41; }
+
+    .next-tag { display: inline-block; background: #f0a500; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 10px; margin-left: 6px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.5px; }
+    .pending-tag { display: inline-block; background: #6c757d; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 10px; margin-left: 6px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.5px; }
+    .washout-tag { display: inline-block; background: #17a2b8; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 10px; margin-left: 6px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* Team badge pill */
+    .team-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700; white-space: nowrap; }
+    .team-harrigan { background: #1a1a2e; color: #f0a500; }
+    .team-women    { background: #f8d7e8; color: #8b1a4a; }
+    .team-u18      { background: #fff3cd; color: #856404; }
+    .team-ollt1    { background: #cce5ff; color: #004085; }
+    .team-ollt2    { background: #d4edda; color: #155724; }
+
+    /* Calendar date group header */
+    .cal-date-header { background: #eef0f4; }
+    .cal-date-header td { font-weight: 700; font-size: 12px; color: #444; padding: 6px 12px; border-bottom: 2px solid #d0d4dc; }
+
+    @media (max-width: 600px) {
+      th.hide-mobile, td.hide-mobile { display: none; }
+      td, th { padding: 7px 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Helensburgh Tigers &mdash; <span>2026 Draw Tracker</span></h1>
+    <div id="last-updated">Last updated: Tue 2 Jun 2026</div>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('calendar')">📅 All Teams</button>
+  <button class="tab-btn" onclick="showTab('harrigan')">🏆 Harrigan Plate</button>
+  <button class="tab-btn" onclick="showTab('women')">👩 Open Women</button>
+  <button class="tab-btn" onclick="showTab('u18')">🟡 U18 Gold</button>
+  <button class="tab-btn" onclick="showTab('ollt1')">🔵 OLLT Div 1</button>
+  <button class="tab-btn" onclick="showTab('ollt2')">🟢 OLLT Div 2</button>
+</div>
+
+<!-- ===== CALENDAR VIEW ===== -->
+<div id="tab-calendar" class="tab-content active">
+  <table id="cal-table">
+    <thead><tr>
+      <th>Date</th><th>Time</th><th>Team</th><th>H/A</th><th>Opponent</th><th>Rnd</th><th>Score</th><th>Result</th>
+    </tr></thead>
+    <tbody id="cal-body"></tbody>
+  </table>
+</div>
+
+<!-- ===== HARRIGAN PLATE ===== -->
+<div id="tab-harrigan" class="tab-content">
+  <div class="record-bar">
+    <span class="record-pill pill-w">W 1</span>
+    <span class="record-pill pill-l">L 4</span>
+    <span class="record-pill pill-p">P 10 remaining</span>
+    <span class="next-label">Next: R6 · Sat 13 Jun · vs Thirroul Butchers · Away · 1:30pm</span>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Rnd</th><th>Date</th><th>Time</th><th>H/A</th><th>Opponent</th><th class="hide-mobile">Venue</th><th>Score</th><th>Result</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>R1</td><td>Sat 2 May</td><td>1:30pm</td><td><span class="ha-badge ha-a">A</span></td><td>Collegians</td><td class="hide-mobile">Collegians Sports Stadium</td><td class="score-cell score-loss">12 – 32</td><td><span class="result-badge badge-l">L</span></td></tr>
+      <tr><td>R2</td><td>Sat 9 May</td><td>1:30pm</td><td><span class="ha-badge ha-h">H</span></td><td>Dapto Canaries</td><td class="hide-mobile">Rex Jackson Oval</td><td class="score-cell score-win">42 – 14</td><td><span class="result-badge badge-w">W</span></td></tr>
+      <tr><td>R3</td><td>Sat 16 May</td><td>4:30pm</td><td><span class="ha-badge ha-h">H</span></td><td>Thirroul Butchers</td><td class="hide-mobile">Rex Jackson Oval</td><td class="score-cell score-loss">0 – 8</td><td><span class="result-badge badge-l">L</span></td></tr>
+      <tr><td>R4</td><td>Sat 23 May</td><td>1:30pm</td><td><span class="ha-badge ha-h">H</span></td><td>Wests Devils</td><td class="hide-mobile">Rex Jackson Oval</td><td class="score-cell score-loss">18 – 28</td><td><span class="result-badge badge-l">L</span></td></tr>
+      <tr><td>R5</td><td>Sun 31 May</td><td>1:30pm</td><td><span class="ha-badge ha-a">A</span></td><td>Corrimal Cougars</td><td class="hide-mobile">Ziems Park</td><td class="score-cell score-loss">14 – 16</td><td><span class="result-badge badge-l">L</span></td></tr>
+      <tr class="row-next"><td>R6</td><td>Sat 13 Jun</td><td>1:30pm</td><td><span class="ha-badge ha-a">A</span></td><td>Thirroul Butchers <span class="next-tag">Next</span></td><td class="hide-mobile">Thomas Gibson Park</td><td>—</td><td>—</td></tr>
+      <tr><td>R7</td><td>Sat 20 Jun</td><td>1:30pm</td><td><span class="ha-badge ha-h">H</span></td><td>Collegians</td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+      <tr><td>R8</td><td>Sat 27 Jun</td><td>1:30pm</td><td><span class="ha-badge ha-a">A</span></td><td>Dapto Canaries</td><td class="hide-mobile">Reed Park</td><td>—</td><td>—</td></tr>
+      <tr><td>R9</td><td>Sat 4 Jul</td><td>3:00pm</td><td><span class="ha-badge ha-h">H</span></td><td>Wests Devils</td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+      <tr><td>R10</td><td>Sat 18 Jul</td><td>1:00pm</td><td><span class="ha-badge ha-a">A</span></td><td>Corrimal Cougars</td><td class="hide-mobile">Ziems Park</td><td>—</td><td>—</td></tr>
+      <tr><td>R11</td><td>Sat 25 Jul</td><td>1:30pm</td><td><span class="ha-badge ha-a">A</span></td><td>Thirroul Butchers</td><td class="hide-mobile">Thomas Gibson Park</td><td>—</td><td>—</td></tr>
+      <tr><td>R12</td><td>Fri 31 Jul</td><td>6:00pm</td><td><span class="ha-badge ha-a">A</span></td><td>Collegians</td><td class="hide-mobile">Collegians Sports Stadium</td><td>—</td><td>—</td></tr>
+      <tr><td>R13</td><td>Sat 8 Aug</td><td>1:30pm</td><td><span class="ha-badge ha-h">H</span></td><td>Dapto Canaries</td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+      <tr><td>R14</td><td>Sat 15 Aug</td><td>1:30pm</td><td><span class="ha-badge ha-a">A</span></td><td>Wests Devils</td><td class="hide-mobile">Sid Parrish Park</td><td>—</td><td>—</td></tr>
+      <tr><td>R15</td><td>Sat 22 Aug</td><td>1:30pm</td><td><span class="ha-badge ha-h">H</span></td><td>Corrimal Cougars</td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== OPEN WOMEN ===== -->
+<div id="tab-women" class="tab-content">
+  <div class="record-bar">
+    <span class="record-pill pill-w">W 3</span>
+    <span class="record-pill pill-l">L 1</span>
+    <span class="record-pill" style="background:#d1ecf1;color:#0c5460;">WO 1</span>
+    <span class="record-pill pill-p">P 8 remaining</span>
+    <span class="next-label">Next: R6 · Sat 13 Jun · vs Corrimal OWT Gold · Home · TBC</span>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Rnd</th><th>Date</th><th>Time</th><th>H/A</th><th>Opponent</th><th class="hide-mobile">Venue</th><th>Score</th><th>Result</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>R1</td><td>Sat 2 May</td><td>12:00pm</td><td><span class="ha-badge ha-a">A</span></td><td>Corrimal OWT Gold</td><td class="hide-mobile">Ziems Park 2</td><td class="score-cell score-loss">4 – 22</td><td><span class="result-badge badge-l">L</span></td></tr>
+      <tr><td>R2</td><td>Sat 9 May</td><td>3:00pm</td><td><span class="ha-badge ha-h">H</span></td><td>Collegians Open Womens</td><td class="hide-mobile">Rex Jackson Oval</td><td class="score-cell score-win">30 – 18</td><td><span class="result-badge badge-w">W</span></td></tr>
+      <tr><td>R3</td><td>Sat 16 May</td><td>12:10pm</td><td><span class="ha-badge ha-h">H</span></td><td>De La Salle Open Women</td><td class="hide-mobile">Rex Jackson Oval</td><td class="score-cell score-win">32 – 16</td><td><span class="result-badge badge-w">W</span></td></tr>
+      <tr><td>R4</td><td>Sat 23 May</td><td>12:20pm</td><td><span class="ha-badge ha-h">H</span></td><td>Taren Point Titans</td><td class="hide-mobile">Rex Jackson Oval</td><td class="score-cell score-win">62 – 0</td><td><span class="result-badge badge-w">W</span></td></tr>
+      <tr><td>R5</td><td>Sat 30 May</td><td>3:00pm</td><td><span class="ha-badge ha-a">A</span></td><td>Engadine Dragons <span class="washout-tag">Washout</span></td><td class="hide-mobile">ANZAC Oval, Engadine</td><td>—</td><td><span class="result-badge badge-wo">WO</span></td></tr>
+      <tr class="row-next"><td>R6</td><td>Sat 13 Jun</td><td>TBC</td><td><span class="ha-badge ha-h">H</span></td><td>Corrimal OWT Gold <span class="next-tag">Next</span></td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+      <tr><td>R7</td><td>Sat 20 Jun</td><td>TBC</td><td><span class="ha-badge ha-a">A</span></td><td>Collegians Open Womens</td><td class="hide-mobile">JJ Kelly Park</td><td>—</td><td>—</td></tr>
+      <tr><td>R8</td><td>Sat 27 Jun</td><td>TBC</td><td><span class="ha-badge ha-a">A</span></td><td>De La Salle Open Women</td><td class="hide-mobile">Captain Cook Oval</td><td>—</td><td>—</td></tr>
+      <tr><td>R9</td><td>Sat 4 Jul</td><td>TBC</td><td><span class="ha-badge ha-a">A</span></td><td>Taren Point Titans</td><td class="hide-mobile">Gwawley Oval North</td><td>—</td><td>—</td></tr>
+      <tr><td>R10</td><td>Sat 11 Jul</td><td>TBC</td><td><span class="ha-badge ha-h">H</span></td><td>Engadine Dragons</td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+      <tr><td>R11</td><td>Sat 18 Jul</td><td>TBC</td><td><span class="ha-badge ha-a">A</span></td><td>Corrimal OWT Gold</td><td class="hide-mobile">Ziems Park</td><td>—</td><td>—</td></tr>
+      <tr><td>R12</td><td>Sat 25 Jul</td><td>TBC</td><td><span class="ha-badge ha-h">H</span></td><td>Collegians Open Womens</td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+      <tr><td>R13</td><td>Sat 1 Aug</td><td>TBC</td><td><span class="ha-badge ha-h">H</span></td><td>De La Salle Open Women</td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+      <tr><td>R14</td><td>Sat 8 Aug</td><td>TBC</td><td><span class="ha-badge ha-a">A</span></td><td>Taren Point Titans</td><td class="hide-mobile">Gwawley Oval North</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== U18 GOLD ===== -->
+<div id="tab-u18" class="tab-content">
+  <div class="record-bar">
+    <span class="record-pill pill-w">W 1</span>
+    <span class="record-pill pill-l">L 0</span>
+    <span class="record-pill pill-d">D 1</span>
+    <span class="record-pill" style="background:#e2e3e5;color:#383d41;">FF 1</span>
+    <span class="record-pill" style="background:#e2e3e5;color:#383d41;">BYE 1</span>
+    <span class="record-pill" style="background:#d1ecf1;color:#0c5460;">WO 1</span>
+    <span class="record-pill pill-p">P 7 remaining</span>
+    <span class="next-label">Next: R6 · Sun 14 Jun · vs Cronulla Caringbah · Away · TBC</span>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Rnd</th><th>Date</th><th>Time</th><th>H/A</th><th>Opponent</th><th class="hide-mobile">Venue</th><th>Score</th><th>Result</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>R1</td><td>Sat 2 May</td><td>1:10pm</td><td><span class="ha-badge ha-a">A</span></td><td>Engadine Dragons</td><td class="hide-mobile">ANZAC Oval, Engadine</td><td class="score-cell score-draw">8 – 8</td><td><span class="result-badge badge-d">D</span></td></tr>
+      <tr><td>R2</td><td>Sat 9 May</td><td>12:15pm</td><td><span class="ha-badge ha-h">H</span></td><td>Corrimal U18 Gold</td><td class="hide-mobile">Rex Jackson Oval</td><td class="score-cell score-win">38 – 4</td><td><span class="result-badge badge-w">W</span></td></tr>
+      <tr><td>R3</td><td>Sun 17 May</td><td>1:10pm</td><td><span class="ha-badge ha-a">A</span></td><td>Thirroul U18 Gold</td><td class="hide-mobile">Thomas Gibson Park</td><td class="score-cell">Forfeit</td><td><span class="result-badge badge-ff">FF</span></td></tr>
+      <tr class="row-bye"><td>R4</td><td colspan="6">— BYE —</td><td></td></tr>
+      <tr><td>R5</td><td>Sat 30 May</td><td>12:30pm</td><td><span class="ha-badge ha-a">A</span></td><td>Aquinas Colts <span class="washout-tag">Washout</span></td><td class="hide-mobile">Blaxland Oval</td><td>—</td><td><span class="result-badge badge-wo">WO</span></td></tr>
+      <tr class="row-next"><td>R6</td><td>Sun 14 Jun</td><td>TBC</td><td><span class="ha-badge ha-a">A</span></td><td>Cronulla Caringbah <span class="next-tag">Next</span></td><td class="hide-mobile">Cronulla High School</td><td>—</td><td>—</td></tr>
+      <tr><td>R7</td><td>Sun 21 Jun</td><td>TBC</td><td><span class="ha-badge ha-h">H</span></td><td>Arncliffe Scots</td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+      <tr><td>R8</td><td>Sun 28 Jun</td><td>TBC</td><td><span class="ha-badge ha-a">A</span></td><td>Penshurst RSL</td><td class="hide-mobile">HV Evatt Park</td><td>—</td><td>—</td></tr>
+      <tr><td>R9</td><td>Sun 5 Jul</td><td>TBC</td><td><span class="ha-badge ha-h">H</span></td><td>Hurstville United</td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+      <tr><td>R10</td><td>Sun 12 Jul</td><td>TBC</td><td><span class="ha-badge ha-h">H</span></td><td>Engadine Dragons</td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+      <tr><td>R11</td><td>Sun 19 Jul</td><td>TBC</td><td><span class="ha-badge ha-a">A</span></td><td>Corrimal U18 Gold</td><td class="hide-mobile">Ziems Park</td><td>—</td><td>—</td></tr>
+      <tr><td>R12</td><td>Sun 26 Jul</td><td>TBC</td><td><span class="ha-badge ha-h">H</span></td><td>Thirroul U18 Gold</td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+      <tr class="row-bye"><td>R13</td><td colspan="6">— BYE —</td><td></td></tr>
+      <tr><td>R14</td><td>Sun 9 Aug</td><td>TBC</td><td><span class="ha-badge ha-h">H</span></td><td>Aquinas Colts</td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== OLLT DIVISION 1 ===== -->
+<div id="tab-ollt1" class="tab-content">
+  <div class="record-bar">
+    <span class="record-pill pill-w">W 1</span>
+    <span class="record-pill pill-l">L 5</span>
+    <span class="record-pill" style="background:#e2e3e5;color:#383d41;">Season complete</span>
+    <span class="next-label">R7 score pending · Season ends after R7</span>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Rnd</th><th>Date</th><th>Time</th><th>H/A</th><th>Opponent</th><th class="hide-mobile">Venue</th><th>Score</th><th>Result</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>R1</td><td>Fri 17 Apr</td><td>7:30pm</td><td><span class="ha-badge ha-h">H</span></td><td>Avondale Greyhounds</td><td class="hide-mobile">Rex Jackson Oval</td><td class="score-cell score-loss">0 – 30</td><td><span class="result-badge badge-l">L</span></td></tr>
+      <tr><td>R2</td><td>Fri 24 Apr</td><td>6:30pm</td><td><span class="ha-badge ha-a">A</span></td><td>Figtree</td><td class="hide-mobile">Noel Mulligan Oval</td><td class="score-cell score-loss">0 – 50</td><td><span class="result-badge badge-l">L</span></td></tr>
+      <tr><td>R3</td><td>Fri 1 May</td><td>7:30pm</td><td><span class="ha-badge ha-h">H</span></td><td>Thirroul</td><td class="hide-mobile">Rex Jackson Oval</td><td class="score-cell score-loss">0 – 22</td><td><span class="result-badge badge-l">L</span></td></tr>
+      <tr><td>R4</td><td>Fri 8 May</td><td>7:30pm</td><td><span class="ha-badge ha-a">A</span></td><td>Corrimal</td><td class="hide-mobile">Ziems Park</td><td class="score-cell score-loss">10 – 26</td><td><span class="result-badge badge-l">L</span></td></tr>
+      <tr><td>R5</td><td>Fri 15 May</td><td>7:30pm</td><td><span class="ha-badge ha-h">H</span></td><td>Dapto</td><td class="hide-mobile">Rex Jackson Oval</td><td class="score-cell score-win">36 – 0</td><td><span class="result-badge badge-w">W</span></td></tr>
+      <tr><td>R6</td><td>Fri 22 May</td><td>7:30pm</td><td><span class="ha-badge ha-a">A</span></td><td>Wests</td><td class="hide-mobile">Sid Parrish Park</td><td class="score-cell score-loss">14 – 20</td><td><span class="result-badge badge-l">L</span></td></tr>
+      <tr><td>R7</td><td>Fri 29 May</td><td>7:30pm</td><td><span class="ha-badge ha-h">H</span></td><td>Collegians <span class="pending-tag">Score Pending</span></td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== OLLT DIVISION 2 ===== -->
+<div id="tab-ollt2" class="tab-content">
+  <div class="record-bar">
+    <span class="record-pill pill-w">W 2</span>
+    <span class="record-pill pill-l">L 3</span>
+    <span class="record-pill" style="background:#e2e3e5;color:#383d41;">BYE 1</span>
+    <span class="record-pill" style="background:#e2e3e5;color:#383d41;">Season complete</span>
+    <span class="next-label">R7 score pending · Season ends after R7</span>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Rnd</th><th>Date</th><th>Time</th><th>H/A</th><th>Opponent</th><th class="hide-mobile">Venue</th><th>Score</th><th>Result</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>R1</td><td>Fri 17 Apr</td><td>6:30pm</td><td><span class="ha-badge ha-h">H</span></td><td>Woonona</td><td class="hide-mobile">Rex Jackson Oval</td><td class="score-cell score-loss">0 – 24</td><td><span class="result-badge badge-l">L</span></td></tr>
+      <tr><td>R2</td><td>Fri 24 Apr</td><td>7:00pm</td><td><span class="ha-badge ha-a">A</span></td><td>Norths</td><td class="hide-mobile">Jim Allen Oval</td><td class="score-cell score-win">20 – 4</td><td><span class="result-badge badge-w">W</span></td></tr>
+      <tr class="row-bye"><td>R3</td><td colspan="6">— BYE —</td><td></td></tr>
+      <tr><td>R4</td><td>Fri 8 May</td><td>6:30pm</td><td><span class="ha-badge ha-a">A</span></td><td>Corrimal</td><td class="hide-mobile">Ziems Park</td><td class="score-cell score-loss">0 – 26</td><td><span class="result-badge badge-l">L</span></td></tr>
+      <tr><td>R5</td><td>Fri 15 May</td><td>6:30pm</td><td><span class="ha-badge ha-h">H</span></td><td>Port Kembla</td><td class="hide-mobile">Rex Jackson Oval</td><td class="score-cell score-win">16 – 4</td><td><span class="result-badge badge-w">W</span></td></tr>
+      <tr><td>R6</td><td>Fri 22 May</td><td>7:00pm</td><td><span class="ha-badge ha-a">A</span></td><td>Windang</td><td class="hide-mobile">Berkeley Sports Club</td><td class="score-cell score-loss">0 – 30</td><td><span class="result-badge badge-l">L</span></td></tr>
+      <tr><td>R7</td><td>Fri 29 May</td><td>6:30pm</td><td><span class="ha-badge ha-h">H</span></td><td>Berkeley <span class="pending-tag">Score Pending</span></td><td class="hide-mobile">Rex Jackson Oval</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // ===== CALENDAR DATA =====
+  // sortKey: YYYYMMDD for sorting
+  const fixtures = [
+    // OLLT Div 1
+    { sortKey:'20260417', date:'Fri 17 Apr', time:'7:30pm', team:'OLLT Div 1',   teamClass:'team-ollt1',    ha:'H', opponent:'Avondale Greyhounds', rnd:'R1', score:'0 – 30',  result:'L' },
+    { sortKey:'20260417', date:'Fri 17 Apr', time:'6:30pm', team:'OLLT Div 2',   teamClass:'team-ollt2',    ha:'H', opponent:'Woonona',             rnd:'R1', score:'0 – 24',  result:'L' },
+    { sortKey:'20260424', date:'Fri 24 Apr', time:'6:30pm', team:'OLLT Div 1',   teamClass:'team-ollt1',    ha:'A', opponent:'Figtree',              rnd:'R2', score:'0 – 50',  result:'L' },
+    { sortKey:'20260424', date:'Fri 24 Apr', time:'7:00pm', team:'OLLT Div 2',   teamClass:'team-ollt2',    ha:'A', opponent:'Norths',               rnd:'R2', score:'20 – 4',  result:'W' },
+    { sortKey:'20260501', date:'Fri 1 May',  time:'7:30pm', team:'OLLT Div 1',   teamClass:'team-ollt1',    ha:'H', opponent:'Thirroul',             rnd:'R3', score:'0 – 22',  result:'L' },
+    { sortKey:'20260502', date:'Sat 2 May',  time:'1:30pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'A', opponent:'Collegians',           rnd:'R1', score:'12 – 32', result:'L' },
+    { sortKey:'20260502', date:'Sat 2 May',  time:'12:00pm',team:'Open Women',    teamClass:'team-women',    ha:'A', opponent:'Corrimal OWT Gold',    rnd:'R1', score:'4 – 22',  result:'L' },
+    { sortKey:'20260502', date:'Sat 2 May',  time:'1:10pm', team:'U18 Gold',      teamClass:'team-u18',      ha:'A', opponent:'Engadine Dragons',     rnd:'R1', score:'8 – 8',   result:'D' },
+    { sortKey:'20260508', date:'Fri 8 May',  time:'7:30pm', team:'OLLT Div 1',   teamClass:'team-ollt1',    ha:'A', opponent:'Corrimal',             rnd:'R4', score:'10 – 26', result:'L' },
+    { sortKey:'20260508', date:'Fri 8 May',  time:'6:30pm', team:'OLLT Div 2',   teamClass:'team-ollt2',    ha:'A', opponent:'Corrimal',             rnd:'R4', score:'0 – 26',  result:'L' },
+    { sortKey:'20260509', date:'Sat 9 May',  time:'1:30pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'H', opponent:'Dapto Canaries',       rnd:'R2', score:'42 – 14', result:'W' },
+    { sortKey:'20260509', date:'Sat 9 May',  time:'3:00pm', team:'Open Women',    teamClass:'team-women',    ha:'H', opponent:'Collegians Open Womens',rnd:'R2', score:'30 – 18', result:'W' },
+    { sortKey:'20260509', date:'Sat 9 May',  time:'12:15pm',team:'U18 Gold',      teamClass:'team-u18',      ha:'H', opponent:'Corrimal U18 Gold',    rnd:'R2', score:'38 – 4',  result:'W' },
+    { sortKey:'20260515', date:'Fri 15 May', time:'7:30pm', team:'OLLT Div 1',   teamClass:'team-ollt1',    ha:'H', opponent:'Dapto',                rnd:'R5', score:'36 – 0',  result:'W' },
+    { sortKey:'20260515', date:'Fri 15 May', time:'6:30pm', team:'OLLT Div 2',   teamClass:'team-ollt2',    ha:'H', opponent:'Port Kembla',          rnd:'R5', score:'16 – 4',  result:'W' },
+    { sortKey:'20260516', date:'Sat 16 May', time:'4:30pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'H', opponent:'Thirroul Butchers',    rnd:'R3', score:'0 – 8',   result:'L' },
+    { sortKey:'20260516', date:'Sat 16 May', time:'12:10pm',team:'Open Women',    teamClass:'team-women',    ha:'H', opponent:'De La Salle Open Women',rnd:'R3', score:'32 – 16', result:'W' },
+    { sortKey:'20260517', date:'Sun 17 May', time:'1:10pm', team:'U18 Gold',      teamClass:'team-u18',      ha:'A', opponent:'Thirroul U18 Gold',    rnd:'R3', score:'Forfeit', result:'FF' },
+    { sortKey:'20260522', date:'Fri 22 May', time:'7:30pm', team:'OLLT Div 1',   teamClass:'team-ollt1',    ha:'A', opponent:'Wests',                rnd:'R6', score:'14 – 20', result:'L' },
+    { sortKey:'20260522', date:'Fri 22 May', time:'7:00pm', team:'OLLT Div 2',   teamClass:'team-ollt2',    ha:'A', opponent:'Windang',              rnd:'R6', score:'0 – 30',  result:'L' },
+    { sortKey:'20260523', date:'Sat 23 May', time:'1:30pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'H', opponent:'Wests Devils',         rnd:'R4', score:'18 – 28', result:'L' },
+    { sortKey:'20260523', date:'Sat 23 May', time:'12:20pm',team:'Open Women',    teamClass:'team-women',    ha:'H', opponent:'Taren Point Titans',   rnd:'R4', score:'62 – 0',  result:'W' },
+    { sortKey:'20260529', date:'Fri 29 May', time:'7:30pm', team:'OLLT Div 1',   teamClass:'team-ollt1',    ha:'H', opponent:'Collegians',           rnd:'R7', score:'—',       result:'PEND' },
+    { sortKey:'20260529', date:'Fri 29 May', time:'6:30pm', team:'OLLT Div 2',   teamClass:'team-ollt2',    ha:'H', opponent:'Berkeley',             rnd:'R7', score:'—',       result:'PEND' },
+    { sortKey:'20260530', date:'Sat 30 May', time:'3:00pm', team:'Open Women',    teamClass:'team-women',    ha:'A', opponent:'Engadine Dragons',     rnd:'R5', score:'—',       result:'WO' },
+    { sortKey:'20260530', date:'Sat 30 May', time:'12:30pm',team:'U18 Gold',      teamClass:'team-u18',      ha:'A', opponent:'Aquinas Colts',        rnd:'R5', score:'—',       result:'WO' },
+    { sortKey:'20260531', date:'Sun 31 May', time:'1:30pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'A', opponent:'Corrimal Cougars',     rnd:'R5', score:'14 – 16', result:'L' },
+    // Upcoming
+    { sortKey:'20260613', date:'Sat 13 Jun', time:'1:30pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'A', opponent:'Thirroul Butchers',    rnd:'R6', score:'—', result:'—' },
+    { sortKey:'20260613', date:'Sat 13 Jun', time:'TBC',    team:'Open Women',    teamClass:'team-women',    ha:'H', opponent:'Corrimal OWT Gold',    rnd:'R6', score:'—', result:'—' },
+    { sortKey:'20260614', date:'Sun 14 Jun', time:'TBC',    team:'U18 Gold',      teamClass:'team-u18',      ha:'A', opponent:'Cronulla Caringbah',   rnd:'R6', score:'—', result:'—' },
+    { sortKey:'20260620', date:'Sat 20 Jun', time:'1:30pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'H', opponent:'Collegians',           rnd:'R7', score:'—', result:'—' },
+    { sortKey:'20260620', date:'Sat 20 Jun', time:'TBC',    team:'Open Women',    teamClass:'team-women',    ha:'A', opponent:'Collegians Open Womens',rnd:'R7', score:'—', result:'—' },
+    { sortKey:'20260621', date:'Sun 21 Jun', time:'TBC',    team:'U18 Gold',      teamClass:'team-u18',      ha:'H', opponent:'Arncliffe Scots',      rnd:'R7', score:'—', result:'—' },
+    { sortKey:'20260627', date:'Sat 27 Jun', time:'1:30pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'A', opponent:'Dapto Canaries',       rnd:'R8', score:'—', result:'—' },
+    { sortKey:'20260627', date:'Sat 27 Jun', time:'TBC',    team:'Open Women',    teamClass:'team-women',    ha:'A', opponent:'De La Salle Open Women',rnd:'R8', score:'—', result:'—' },
+    { sortKey:'20260628', date:'Sun 28 Jun', time:'TBC',    team:'U18 Gold',      teamClass:'team-u18',      ha:'A', opponent:'Penshurst RSL',        rnd:'R8', score:'—', result:'—' },
+    { sortKey:'20260704', date:'Sat 4 Jul',  time:'3:00pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'H', opponent:'Wests Devils',         rnd:'R9', score:'—', result:'—' },
+    { sortKey:'20260704', date:'Sat 4 Jul',  time:'TBC',    team:'Open Women',    teamClass:'team-women',    ha:'A', opponent:'Taren Point Titans',   rnd:'R9', score:'—', result:'—' },
+    { sortKey:'20260705', date:'Sun 5 Jul',  time:'TBC',    team:'U18 Gold',      teamClass:'team-u18',      ha:'H', opponent:'Hurstville United',    rnd:'R9', score:'—', result:'—' },
+    { sortKey:'20260711', date:'Sat 11 Jul', time:'TBC',    team:'Open Women',    teamClass:'team-women',    ha:'H', opponent:'Engadine Dragons',     rnd:'R10',score:'—', result:'—' },
+    { sortKey:'20260712', date:'Sun 12 Jul', time:'TBC',    team:'U18 Gold',      teamClass:'team-u18',      ha:'H', opponent:'Engadine Dragons',     rnd:'R10',score:'—', result:'—' },
+    { sortKey:'20260718', date:'Sat 18 Jul', time:'1:00pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'A', opponent:'Corrimal Cougars',     rnd:'R10',score:'—', result:'—' },
+    { sortKey:'20260718', date:'Sat 18 Jul', time:'TBC',    team:'Open Women',    teamClass:'team-women',    ha:'A', opponent:'Corrimal OWT Gold',    rnd:'R11',score:'—', result:'—' },
+    { sortKey:'20260719', date:'Sun 19 Jul', time:'TBC',    team:'U18 Gold',      teamClass:'team-u18',      ha:'A', opponent:'Corrimal U18 Gold',    rnd:'R11',score:'—', result:'—' },
+    { sortKey:'20260725', date:'Sat 25 Jul', time:'1:30pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'A', opponent:'Thirroul Butchers',    rnd:'R11',score:'—', result:'—' },
+    { sortKey:'20260725', date:'Sat 25 Jul', time:'TBC',    team:'Open Women',    teamClass:'team-women',    ha:'H', opponent:'Collegians Open Womens',rnd:'R12',score:'—', result:'—' },
+    { sortKey:'20260726', date:'Sun 26 Jul', time:'TBC',    team:'U18 Gold',      teamClass:'team-u18',      ha:'H', opponent:'Thirroul U18 Gold',    rnd:'R12',score:'—', result:'—' },
+    { sortKey:'20260731', date:'Fri 31 Jul', time:'6:00pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'A', opponent:'Collegians',           rnd:'R12',score:'—', result:'—' },
+    { sortKey:'20260801', date:'Sat 1 Aug',  time:'TBC',    team:'Open Women',    teamClass:'team-women',    ha:'H', opponent:'De La Salle Open Women',rnd:'R13',score:'—', result:'—' },
+    { sortKey:'20260808', date:'Sat 8 Aug',  time:'1:30pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'H', opponent:'Dapto Canaries',       rnd:'R13',score:'—', result:'—' },
+    { sortKey:'20260808', date:'Sat 8 Aug',  time:'TBC',    team:'Open Women',    teamClass:'team-women',    ha:'A', opponent:'Taren Point Titans',   rnd:'R14',score:'—', result:'—' },
+    { sortKey:'20260809', date:'Sun 9 Aug',  time:'TBC',    team:'U18 Gold',      teamClass:'team-u18',      ha:'H', opponent:'Aquinas Colts',        rnd:'R14',score:'—', result:'—' },
+    { sortKey:'20260815', date:'Sat 15 Aug', time:'1:30pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'A', opponent:'Wests Devils',         rnd:'R14',score:'—', result:'—' },
+    { sortKey:'20260822', date:'Sat 22 Aug', time:'1:30pm', team:'Harrigan Plate',teamClass:'team-harrigan', ha:'H', opponent:'Corrimal Cougars',     rnd:'R15',score:'—', result:'—' },
+  ];
+
+  const TODAY = '20260602';
+
+  function resultHTML(r, score) {
+    if (r === 'W')    return `<span class="result-badge badge-w">W</span>`;
+    if (r === 'L')    return `<span class="result-badge badge-l">L</span>`;
+    if (r === 'D')    return `<span class="result-badge badge-d">D</span>`;
+    if (r === 'FF')   return `<span class="result-badge badge-ff">FF</span>`;
+    if (r === 'WO')   return `<span class="result-badge badge-wo">WO</span>`;
+    if (r === 'PEND') return `<span class="pending-tag">Pending</span>`;
+    return '—';
+  }
+
+  function scoreHTML(r, score) {
+    if (score === '—' || !score) return '—';
+    if (score === 'Forfeit') return score;
+    const cls = r === 'W' ? 'score-win' : r === 'L' ? 'score-loss' : r === 'D' ? 'score-draw' : '';
+    return `<span class="score-cell ${cls}">${score}</span>`;
+  }
+
+  function buildCalendar() {
+    const sorted = [...fixtures].sort((a, b) => {
+      if (a.sortKey !== b.sortKey) return a.sortKey.localeCompare(b.sortKey);
+      return a.time.localeCompare(b.time);
+    });
+
+    const tbody = document.getElementById('cal-body');
+    let lastDate = null;
+
+    // Find the next upcoming date
+    const nextDate = sorted.find(f => f.sortKey >= TODAY && f.result === '—')?.sortKey;
+
+    sorted.forEach(f => {
+      if (f.date !== lastDate) {
+        const headerRow = document.createElement('tr');
+        headerRow.className = 'cal-date-header';
+        headerRow.innerHTML = `<td colspan="8">${f.date}</td>`;
+        tbody.appendChild(headerRow);
+        lastDate = f.date;
+      }
+
+      const isNext = f.sortKey === nextDate && f.result === '—';
+      const tr = document.createElement('tr');
+      if (isNext) tr.className = 'row-next';
+
+      const haClass = f.ha === 'H' ? 'ha-h' : 'ha-a';
+
+      tr.innerHTML = `
+        <td></td>
+        <td>${f.time}</td>
+        <td><span class="team-badge ${f.teamClass}">${f.team}</span></td>
+        <td><span class="ha-badge ${haClass}">${f.ha}</span></td>
+        <td>${f.opponent}${isNext ? ' <span class="next-tag">Next</span>' : ''}</td>
+        <td>${f.rnd}</td>
+        <td>${scoreHTML(f.result, f.score)}</td>
+        <td>${resultHTML(f.result, f.score)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  buildCalendar();
+</script>
+</body>
+</html>
