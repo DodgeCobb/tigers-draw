@@ -1,0 +1,25 @@
+{
+  "lastUpdated": "Thu 4 Jun 2026",
+  "teams": {
+    "harrigan": {
+      "name": "Harrigan Plate",
+      "matches": []
+    },
+    "women": {
+      "name": "Open Women",
+      "matches": []
+    },
+    "u18": {
+      "name": "U18 Gold",
+      "matches": []
+    },
+    "ollt1": {
+      "name": "OLLT Div 1",
+      "matches": []
+    },
+    "ollt2": {
+      "name": "OLLT Div 2",
+      "matches": []
+    }
+  }
+}
