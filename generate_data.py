@@ -42,10 +42,18 @@ QUERY = (
 )
 
 
+HEADERS = {
+    "Content-Type": "application/json",
+    "Origin": "https://prl.mysideline.com.au",
+    "Referer": "https://prl.mysideline.com.au/",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+}
+
 def fetch_matches(comp_id):
     resp = requests.post(
         GRAPHQL,
         json={"query": QUERY % comp_id},
+        headers=HEADERS,
         timeout=20
     )
     resp.raise_for_status()
