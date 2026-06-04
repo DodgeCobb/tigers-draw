@@ -57,7 +57,16 @@
     tr.row-bye { background: #fafafa; }
     tr.row-bye td { color: #aaa; font-style: italic; }
 
-    .ha-badge { display: inline-block; width: 18px; height: 18px; line-height: 18px; text-align: center; border-radius: 3px; font-size: 10px; font-weight: 700; }
+    /* Calendar scroll + sticky header */
+    .cal-scroll { overflow-y: auto; height: 560px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    #cal-table { border-radius: 0; box-shadow: none; overflow: visible; }
+    #cal-table thead { position: sticky; top: 0; z-index: 5; }
+    #cal-table thead th { background: #1a1a2e; }
+
+    tr.row-home { background: #fffaf0; }
+    tr.row-home td:first-child { border-left: 3px solid rgba(240,165,0,0.45); padding-left: 9px; }
+
+    .ha-badge { display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 10px; font-weight: 700; white-space: nowrap; }
     .ha-h { background: #cce5ff; color: #004085; }
     .ha-a { background: #e2e3e5; color: #383d41; }
 
@@ -122,7 +131,8 @@
 
   // ── HTML helpers ───────────────────────────────────────────────────
   function haBadge(ha) {
-    return `<span class="ha-badge ha-${ha.toLowerCase()}">${ha}</span>`;
+    const label = ha === 'H' ? 'Home' : 'Away';
+    return `<span class="ha-badge ha-${ha.toLowerCase()}">${label}</span>`;
   }
 
   function resultBadge(res) {
@@ -214,7 +224,7 @@
       }
       const isNext = nextMatch && m === nextMatch;
       const nextTag = isNext ? ' <span class="next-tag">Next</span>' : '';
-      const rowClass = isNext ? ' class="row-next"' : '';
+      const rowClass = isNext ? ' class="row-next"' : (m.ha === 'H' ? ' class="row-home"' : '');
       rows += `
         <tr${rowClass}>
           <td>R${m.rnd}</td>
@@ -273,29 +283,31 @@
       }
       const isNext = !nextUsed && nextSortKey && m.sortKey === nextSortKey && !m.res;
       if (isNext) nextUsed = true;
-      const rowClass = isNext ? ' class="row-next"' : '';
+      const rowClass = isNext ? ' class="row-next"' : (m.ha === 'H' ? ' class="row-home"' : '');
       const nextTag = isNext ? ' <span class="next-tag">Next</span>' : '';
       rows += `
         <tr${rowClass}>
           <td></td>
+          <td>${m.rndName || 'R' + m.rnd}</td>
           <td>${m.time}</td>
           <td><span class="team-badge team-${m.teamKey}">${m.teamName}</span></td>
           <td>${haBadge(m.ha)}</td>
           <td>${m.opp}${nextTag}</td>
-          <td>${m.rndName || 'R' + m.rnd}</td>
           <td>${scoreCell(m.score, m.res)}</td>
           <td>${resultBadge(m.res)}</td>
         </tr>`;
     }
 
     return `
-      <table>
-        <thead><tr>
-          <th>Date</th><th>Time</th><th>Team</th><th>H/A</th><th>Opponent</th>
-          <th>Round</th><th>Score</th><th>Result</th>
-        </tr></thead>
-        <tbody>${rows}</tbody>
-      </table>`;
+      <div class="cal-scroll">
+        <table id="cal-table">
+          <thead><tr>
+            <th>Date</th><th>Rnd</th><th>Time</th><th>Team</th><th>H/A</th><th>Opponent</th>
+            <th>Score</th><th>Result</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
   }
 
   // ── Main: load data.json and render ───────────────────────────────
