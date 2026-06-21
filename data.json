@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "Mon 15 Jun 2026",
+  "lastUpdated": "Mon 22 Jun 2026",
   "teams": {
     "harrigan": {
       "name": "Harrigan Plate",
@@ -265,20 +265,20 @@
           "rnd": 7,
           "rndName": "Round 7",
           "date": "Sat 20 Jun",
-          "sortKey": "202606200100",
-          "time": "1:00am",
+          "sortKey": "202606201300",
+          "time": "1:00pm",
           "ha": "A",
           "opp": "Collegians Open Womens",
-          "venue": "JJ Kelly Park",
-          "score": null,
-          "res": null
+          "venue": "Collegians Sports Stadium",
+          "score": "4 \u2013 8",
+          "res": "L"
         },
         {
           "rnd": 8,
           "rndName": "Round 8",
           "date": "Sat 27 Jun",
-          "sortKey": "202606270100",
-          "time": "1:00am",
+          "sortKey": "202606271110",
+          "time": "11:10am",
           "ha": "A",
           "opp": "De La Salle Open Women Tackle",
           "venue": "Captain Cook Oval",
@@ -438,13 +438,13 @@
           "rnd": 7,
           "rndName": "Round 7",
           "date": "Sun 21 Jun",
-          "sortKey": "202606210100",
-          "time": "1:00am",
-          "ha": "H",
+          "sortKey": "202606211450",
+          "time": "2:50pm",
+          "ha": "A",
           "opp": "Arncliffe Scots U/18",
-          "venue": "Rex Jackson Oval",
-          "score": null,
-          "res": null
+          "venue": "Bexley Oval",
+          "score": "14 \u2013 16",
+          "res": "L"
         },
         {
           "rnd": 8,
@@ -628,8 +628,20 @@
           "ha": "A",
           "opp": "Avondale Greyhounds OLLT (Division 1)",
           "venue": "Dandaloo",
-          "score": null,
-          "res": null
+          "score": "0 \u2013 30",
+          "res": "L"
+        },
+        {
+          "rnd": 9,
+          "rndName": "Round 9",
+          "date": "Fri 19 Jun",
+          "sortKey": "202606191930",
+          "time": "7:30pm",
+          "ha": "H",
+          "opp": "Figtree OLLT (Division 1)",
+          "venue": "Rex Jackson Oval",
+          "score": "0 \u2013 40",
+          "res": "L"
         }
       ]
     },
@@ -729,8 +741,20 @@
           "ha": "A",
           "opp": "Woonona OLLT (Division 2)",
           "venue": "Hollymount Park",
-          "score": null,
-          "res": null
+          "score": "4 \u2013 42",
+          "res": "L"
+        },
+        {
+          "rnd": 9,
+          "rndName": "Round 9",
+          "date": "Fri 19 Jun",
+          "sortKey": "202606191830",
+          "time": "6:30pm",
+          "ha": "H",
+          "opp": "Norths OLLT (Division 2)",
+          "venue": "Rex Jackson Oval",
+          "score": "4 \u2013 30",
+          "res": "L"
         }
       ]
     }
