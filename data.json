@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "Mon 22 Jun 2026",
+  "lastUpdated": "Mon 29 Jun 2026",
   "teams": {
     "harrigan": {
       "name": "Harrigan Plate",
@@ -85,15 +85,15 @@
           "ha": "H",
           "opp": "Collegians",
           "venue": "Rex Jackson Oval",
-          "score": null,
-          "res": null
+          "score": "24 \u2013 30",
+          "res": "L"
         },
         {
           "rnd": 8,
           "rndName": "Round 8",
           "date": "Sat 27 Jun",
-          "sortKey": "202606271330",
-          "time": "1:30pm",
+          "sortKey": "202606271430",
+          "time": "2:30pm",
           "ha": "A",
           "opp": "Dapto Canaries",
           "venue": "Reed Park",
@@ -277,20 +277,20 @@
           "rnd": 8,
           "rndName": "Round 8",
           "date": "Sat 27 Jun",
-          "sortKey": "202606271110",
-          "time": "11:10am",
+          "sortKey": "202606271240",
+          "time": "12:40pm",
           "ha": "A",
           "opp": "De La Salle Open Women Tackle",
           "venue": "Captain Cook Oval",
-          "score": null,
-          "res": null
+          "score": "30 \u2013 0",
+          "res": "W"
         },
         {
           "rnd": 9,
           "rndName": "Round 9",
           "date": "Sat 4 Jul",
-          "sortKey": "202607040100",
-          "time": "1:00am",
+          "sortKey": "202607041040",
+          "time": "10:40am",
           "ha": "A",
           "opp": "Taren Point Titans Open Women Tackle",
           "venue": "GWAWLEY OVAL NORTH",
@@ -450,11 +450,11 @@
           "rnd": 8,
           "rndName": "Round 8",
           "date": "Sun 28 Jun",
-          "sortKey": "202606280100",
-          "time": "1:00am",
+          "sortKey": "202606281400",
+          "time": "2:00pm",
           "ha": "A",
-          "opp": "Penshurst RSL U/18",
-          "venue": "H V Evatt Park",
+          "opp": "Taren Point Titans U/18",
+          "venue": "GWAWLEY OVAL NORTH",
           "score": null,
           "res": null
         },
@@ -464,20 +464,20 @@
           "date": "Sun 5 Jul",
           "sortKey": "202607050100",
           "time": "1:00am",
-          "ha": "H",
-          "opp": "Hurstville United U/18",
-          "venue": "Rex Jackson Oval",
+          "ha": "A",
+          "opp": "Penshurst RSL U/18",
+          "venue": "H V Evatt Park",
           "score": null,
           "res": null
         },
         {
           "rnd": 10,
           "rndName": "Round 10",
-          "date": "Sat 11 Jul",
-          "sortKey": "202607110100",
+          "date": "Sun 12 Jul",
+          "sortKey": "202607120100",
           "time": "1:00am",
           "ha": "H",
-          "opp": "Engadine Dragons U/18 (1)",
+          "opp": "Aquinas Colts U/18 (2)",
           "venue": "Rex Jackson Oval",
           "score": null,
           "res": null
@@ -485,24 +485,24 @@
         {
           "rnd": 11,
           "rndName": "Round 11",
-          "date": "Sat 18 Jul",
-          "sortKey": "202607180100",
+          "date": "Sun 19 Jul",
+          "sortKey": "202607190100",
           "time": "1:00am",
           "ha": "A",
-          "opp": "Corrimal U18 Gold",
-          "venue": "Ziems Park",
+          "opp": "Hurstville United U/18",
+          "venue": "Bexley Oval",
           "score": null,
           "res": null
         },
         {
           "rnd": 12,
           "rndName": "Round 12",
-          "date": "Sat 25 Jul",
-          "sortKey": "202607250100",
+          "date": "Sun 26 Jul",
+          "sortKey": "202607260100",
           "time": "1:00am",
-          "ha": "H",
-          "opp": "Thirroul U18 Gold",
-          "venue": "Rex Jackson Oval",
+          "ha": "A",
+          "opp": "Arncliffe Scots U/18",
+          "venue": "Cahill Park",
           "score": null,
           "res": null
         },
@@ -512,20 +512,20 @@
           "date": "Sun 2 Aug",
           "sortKey": "202608020100",
           "time": "1:00am",
-          "ha": "A",
-          "opp": "TBD",
-          "venue": "Todd Park",
+          "ha": "H",
+          "opp": "Gymea Gorillas U/18",
+          "venue": "Rex Jackson Oval",
           "score": null,
           "res": null
         },
         {
           "rnd": 14,
           "rndName": "Round 14",
-          "date": "Sat 8 Aug",
-          "sortKey": "202608080100",
+          "date": "Sun 9 Aug",
+          "sortKey": "202608090100",
           "time": "1:00am",
           "ha": "H",
-          "opp": "Aquinas Colts U/18 (2)",
+          "opp": "Engadine Dragons U/18 (1)",
           "venue": "Rex Jackson Oval",
           "score": null,
           "res": null
@@ -642,6 +642,18 @@
           "venue": "Rex Jackson Oval",
           "score": "0 \u2013 40",
           "res": "L"
+        },
+        {
+          "rnd": 10,
+          "rndName": "Round 10",
+          "date": "Fri 26 Jun",
+          "sortKey": "202606261930",
+          "time": "7:30pm",
+          "ha": "H",
+          "opp": "Corrimal OLLT (Division 1)",
+          "venue": "Rex Jackson Oval",
+          "score": "4 \u2013 24",
+          "res": "L"
         }
       ]
     },
@@ -754,6 +766,18 @@
           "opp": "Norths OLLT (Division 2)",
           "venue": "Rex Jackson Oval",
           "score": "4 \u2013 30",
+          "res": "L"
+        },
+        {
+          "rnd": 10,
+          "rndName": "Round 10",
+          "date": "Fri 26 Jun",
+          "sortKey": "202606261830",
+          "time": "6:30pm",
+          "ha": "H",
+          "opp": "Corrimal OLLT (Division 2)",
+          "venue": "Rex Jackson Oval",
+          "score": "4 \u2013 26",
           "res": "L"
         }
       ]
