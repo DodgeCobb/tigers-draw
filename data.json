@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "Mon 29 Jun 2026",
+  "lastUpdated": "Mon 6 Jul 2026",
   "teams": {
     "harrigan": {
       "name": "Harrigan Plate",
@@ -109,8 +109,8 @@
           "ha": "H",
           "opp": "Wests Devils",
           "venue": "Rex Jackson Oval",
-          "score": null,
-          "res": null
+          "score": "38 \u2013 12",
+          "res": "W"
         },
         {
           "rnd": 10,
@@ -289,13 +289,13 @@
           "rnd": 9,
           "rndName": "Round 9",
           "date": "Sat 4 Jul",
-          "sortKey": "202607041040",
-          "time": "10:40am",
+          "sortKey": "202607041150",
+          "time": "11:50am",
           "ha": "A",
           "opp": "Taren Point Titans Open Women Tackle",
           "venue": "GWAWLEY OVAL NORTH",
-          "score": null,
-          "res": null
+          "score": "36 \u2013 0",
+          "res": "W"
         },
         {
           "rnd": 10,
@@ -467,8 +467,8 @@
           "ha": "A",
           "opp": "Penshurst RSL U/18",
           "venue": "H V Evatt Park",
-          "score": null,
-          "res": null
+          "score": "12 \u2013 36",
+          "res": "L"
         },
         {
           "rnd": 10,
@@ -486,8 +486,8 @@
           "rnd": 11,
           "rndName": "Round 11",
           "date": "Sun 19 Jul",
-          "sortKey": "202607190100",
-          "time": "1:00am",
+          "sortKey": "202607191200",
+          "time": "12:00pm",
           "ha": "A",
           "opp": "Hurstville United U/18",
           "venue": "Bexley Oval",
@@ -654,6 +654,18 @@
           "venue": "Rex Jackson Oval",
           "score": "4 \u2013 24",
           "res": "L"
+        },
+        {
+          "rnd": 11,
+          "rndName": "Round 11",
+          "date": "Fri 3 Jul",
+          "sortKey": "202607031930",
+          "time": "7:30pm",
+          "ha": "A",
+          "opp": "Thirroul OLLT (Division 1)",
+          "venue": "Thomas Gibson Park",
+          "score": null,
+          "res": null
         }
       ]
     },
@@ -779,6 +791,18 @@
           "venue": "Rex Jackson Oval",
           "score": "4 \u2013 26",
           "res": "L"
+        },
+        {
+          "rnd": 11,
+          "rndName": "Round 11",
+          "date": "Fri 3 Jul",
+          "sortKey": "202607031930",
+          "time": "7:30pm",
+          "ha": "A",
+          "opp": "Dapto OLLT (Division 2)",
+          "venue": "Reed Park",
+          "score": null,
+          "res": null
         }
       ]
     }
