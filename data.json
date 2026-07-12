@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "Mon 6 Jul 2026",
+  "lastUpdated": "Mon 13 Jul 2026",
   "teams": {
     "harrigan": {
       "name": "Harrigan Plate",
@@ -301,13 +301,13 @@
           "rnd": 10,
           "rndName": "Round 10",
           "date": "Sat 11 Jul",
-          "sortKey": "202607110100",
-          "time": "1:00am",
+          "sortKey": "202607111330",
+          "time": "1:30pm",
           "ha": "H",
           "opp": "Engadine Dragons Open Women Girls Tackle (1)",
           "venue": "Rex Jackson Oval",
-          "score": null,
-          "res": null
+          "score": "40 \u2013 0",
+          "res": "W"
         },
         {
           "rnd": 11,
@@ -473,14 +473,14 @@
         {
           "rnd": 10,
           "rndName": "Round 10",
-          "date": "Sun 12 Jul",
-          "sortKey": "202607120100",
-          "time": "1:00am",
+          "date": "Sat 11 Jul",
+          "sortKey": "202607111200",
+          "time": "12:00pm",
           "ha": "H",
           "opp": "Aquinas Colts U/18 (2)",
           "venue": "Rex Jackson Oval",
-          "score": null,
-          "res": null
+          "score": "20 \u2013 18",
+          "res": "W"
         },
         {
           "rnd": 11,
@@ -498,11 +498,11 @@
           "rnd": 12,
           "rndName": "Round 12",
           "date": "Sun 26 Jul",
-          "sortKey": "202607260100",
-          "time": "1:00am",
-          "ha": "A",
+          "sortKey": "202607261320",
+          "time": "1:20pm",
+          "ha": "H",
           "opp": "Arncliffe Scots U/18",
-          "venue": "Cahill Park",
+          "venue": "Rex Jackson Oval",
           "score": null,
           "res": null
         },
@@ -664,8 +664,8 @@
           "ha": "A",
           "opp": "Thirroul OLLT (Division 1)",
           "venue": "Thomas Gibson Park",
-          "score": null,
-          "res": null
+          "score": "8 \u2013 34",
+          "res": "L"
         }
       ]
     },
@@ -801,8 +801,8 @@
           "ha": "A",
           "opp": "Dapto OLLT (Division 2)",
           "venue": "Reed Park",
-          "score": null,
-          "res": null
+          "score": "10 \u2013 36",
+          "res": "L"
         }
       ]
     }
