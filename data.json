@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "Mon 13 Jul 2026",
+  "lastUpdated": "Mon 20 Jul 2026",
   "teams": {
     "harrigan": {
       "name": "Harrigan Plate",
@@ -313,8 +313,8 @@
           "rnd": 11,
           "rndName": "Round 11",
           "date": "Sat 18 Jul",
-          "sortKey": "202607180100",
-          "time": "1:00am",
+          "sortKey": "202607181030",
+          "time": "10:30am",
           "ha": "A",
           "opp": "Corrimal OWT Gold",
           "venue": "Ziems Park",
@@ -486,11 +486,11 @@
           "rnd": 11,
           "rndName": "Round 11",
           "date": "Sun 19 Jul",
-          "sortKey": "202607191200",
-          "time": "12:00pm",
+          "sortKey": "202607191310",
+          "time": "1:10pm",
           "ha": "A",
           "opp": "Hurstville United U/18",
-          "venue": "Bexley Oval",
+          "venue": "H V Evatt Park",
           "score": null,
           "res": null
         },
@@ -666,6 +666,18 @@
           "venue": "Thomas Gibson Park",
           "score": "8 \u2013 34",
           "res": "L"
+        },
+        {
+          "rnd": 12,
+          "rndName": "Round 12",
+          "date": "Fri 17 Jul",
+          "sortKey": "202607171930",
+          "time": "7:30pm",
+          "ha": "H",
+          "opp": "Wests OLLT (Division 1)",
+          "venue": "Rex Jackson Oval",
+          "score": "8 \u2013 40",
+          "res": "L"
         }
       ]
     },
@@ -802,6 +814,18 @@
           "opp": "Dapto OLLT (Division 2)",
           "venue": "Reed Park",
           "score": "10 \u2013 36",
+          "res": "L"
+        },
+        {
+          "rnd": 12,
+          "rndName": "Round 12",
+          "date": "Fri 17 Jul",
+          "sortKey": "202607171830",
+          "time": "6:30pm",
+          "ha": "H",
+          "opp": "Windang OLLT (Division 2)",
+          "venue": "Rex Jackson Oval",
+          "score": "12 \u2013 18",
           "res": "L"
         }
       ]
