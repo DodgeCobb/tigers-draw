@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "Mon 20 Jul 2026",
+  "lastUpdated": "Mon 27 Jul 2026",
   "teams": {
     "harrigan": {
       "name": "Harrigan Plate",
@@ -121,8 +121,8 @@
           "ha": "A",
           "opp": "Corrimal Cougars",
           "venue": "Ziems Park",
-          "score": null,
-          "res": null
+          "score": "4 \u2013 26",
+          "res": "L"
         },
         {
           "rnd": 11,
@@ -133,8 +133,8 @@
           "ha": "A",
           "opp": "Thirroul Butchers",
           "venue": "Thomas Gibson Park",
-          "score": null,
-          "res": null
+          "score": "0 \u2013 34",
+          "res": "L"
         },
         {
           "rnd": 12,
@@ -318,20 +318,20 @@
           "ha": "A",
           "opp": "Corrimal OWT Gold",
           "venue": "Ziems Park",
-          "score": null,
-          "res": null
+          "score": "12 \u2013 6",
+          "res": "W"
         },
         {
           "rnd": 12,
           "rndName": "Round 12",
           "date": "Sat 25 Jul",
-          "sortKey": "202607250100",
-          "time": "1:00am",
+          "sortKey": "202607251200",
+          "time": "12:00pm",
           "ha": "H",
           "opp": "Collegians Open Womens",
           "venue": "Rex Jackson Oval",
-          "score": null,
-          "res": null
+          "score": "8 \u2013 16",
+          "res": "L"
         },
         {
           "rnd": 13,
@@ -491,20 +491,20 @@
           "ha": "A",
           "opp": "Hurstville United U/18",
           "venue": "H V Evatt Park",
-          "score": null,
-          "res": null
+          "score": "17 \u2013 17",
+          "res": "D"
         },
         {
           "rnd": 12,
           "rndName": "Round 12",
           "date": "Sun 26 Jul",
-          "sortKey": "202607261320",
-          "time": "1:20pm",
+          "sortKey": "202607261200",
+          "time": "12:00pm",
           "ha": "H",
           "opp": "Arncliffe Scots U/18",
           "venue": "Rex Jackson Oval",
-          "score": null,
-          "res": null
+          "score": "13 \u2013 12",
+          "res": "W"
         },
         {
           "rnd": 13,
@@ -678,6 +678,18 @@
           "venue": "Rex Jackson Oval",
           "score": "8 \u2013 40",
           "res": "L"
+        },
+        {
+          "rnd": 13,
+          "rndName": "Round 13",
+          "date": "Fri 24 Jul",
+          "sortKey": "202607240100",
+          "time": "1:00am",
+          "ha": "H",
+          "opp": "TBD",
+          "venue": "",
+          "score": null,
+          "res": null
         }
       ]
     },
@@ -827,6 +839,18 @@
           "venue": "Rex Jackson Oval",
           "score": "12 \u2013 18",
           "res": "L"
+        },
+        {
+          "rnd": 13,
+          "rndName": "Round 13",
+          "date": "Fri 24 Jul",
+          "sortKey": "202607240630",
+          "time": "6:30am",
+          "ha": "A",
+          "opp": "Port Kembla OLLT (Division 2)",
+          "venue": "Noel Mulligan Oval",
+          "score": null,
+          "res": null
         }
       ]
     }
