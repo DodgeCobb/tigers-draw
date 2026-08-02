@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "Mon 27 Jul 2026",
+  "lastUpdated": "Mon 3 Aug 2026",
   "teams": {
     "harrigan": {
       "name": "Harrigan Plate",
@@ -145,8 +145,8 @@
           "ha": "A",
           "opp": "Collegians",
           "venue": "Collegians Sports Stadium",
-          "score": null,
-          "res": null
+          "score": "18 \u2013 20",
+          "res": "L"
         },
         {
           "rnd": 13,
@@ -337,20 +337,20 @@
           "rnd": 13,
           "rndName": "Round 13",
           "date": "Sat 1 Aug",
-          "sortKey": "202608010100",
-          "time": "1:00am",
+          "sortKey": "202608011330",
+          "time": "1:30pm",
           "ha": "H",
           "opp": "De La Salle Open Women Tackle",
           "venue": "Rex Jackson Oval",
-          "score": null,
-          "res": null
+          "score": "24 \u2013 0",
+          "res": "W"
         },
         {
           "rnd": 14,
           "rndName": "Round 14",
           "date": "Sat 8 Aug",
-          "sortKey": "202608080100",
-          "time": "1:00am",
+          "sortKey": "202608081300",
+          "time": "1:00pm",
           "ha": "A",
           "opp": "Taren Point Titans Open Women Tackle",
           "venue": "GWAWLEY OVAL NORTH",
@@ -509,14 +509,14 @@
         {
           "rnd": 13,
           "rndName": "Round 13",
-          "date": "Sun 2 Aug",
-          "sortKey": "202608020100",
-          "time": "1:00am",
+          "date": "Sat 1 Aug",
+          "sortKey": "202608011200",
+          "time": "12:00pm",
           "ha": "H",
           "opp": "Gymea Gorillas U/18",
           "venue": "Rex Jackson Oval",
-          "score": null,
-          "res": null
+          "score": "22 \u2013 32",
+          "res": "L"
         },
         {
           "rnd": 14,
@@ -688,8 +688,20 @@
           "ha": "H",
           "opp": "TBD",
           "venue": "",
-          "score": null,
-          "res": null
+          "score": "0 \u2013 0",
+          "res": "D"
+        },
+        {
+          "rnd": 14,
+          "rndName": "Round 14",
+          "date": "Fri 31 Jul",
+          "sortKey": "202607311830",
+          "time": "6:30pm",
+          "ha": "A",
+          "opp": "Collegians OLLT (Division 1)",
+          "venue": "JJ Kelly Park",
+          "score": "0 \u2013 60",
+          "res": "L"
         }
       ]
     },
@@ -849,6 +861,18 @@
           "ha": "A",
           "opp": "Port Kembla OLLT (Division 2)",
           "venue": "Noel Mulligan Oval",
+          "score": "36 \u2013 0",
+          "res": "W"
+        },
+        {
+          "rnd": 14,
+          "rndName": "Round 14",
+          "date": "Fri 31 Jul",
+          "sortKey": "202607311900",
+          "time": "7:00pm",
+          "ha": "A",
+          "opp": "Berkeley OLLT (Division 2)",
+          "venue": "Berkeley Sports  Club",
           "score": null,
           "res": null
         }
