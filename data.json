@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "Mon 3 Aug 2026",
+  "lastUpdated": "Sun 9 Aug 2026",
   "teams": {
     "harrigan": {
       "name": "Harrigan Plate",
@@ -354,8 +354,8 @@
           "ha": "A",
           "opp": "Taren Point Titans Open Women Tackle",
           "venue": "GWAWLEY OVAL NORTH",
-          "score": null,
-          "res": null
+          "score": "16 \u2013 0",
+          "res": "W"
         }
       ]
     },
@@ -521,14 +521,14 @@
         {
           "rnd": 14,
           "rndName": "Round 14",
-          "date": "Sun 9 Aug",
-          "sortKey": "202608090100",
-          "time": "1:00am",
+          "date": "Sat 8 Aug",
+          "sortKey": "202608081200",
+          "time": "12:00pm",
           "ha": "H",
           "opp": "Engadine Dragons U/18 (1)",
           "venue": "Rex Jackson Oval",
-          "score": null,
-          "res": null
+          "score": "20 \u2013 16",
+          "res": "W"
         }
       ]
     },
@@ -873,8 +873,8 @@
           "ha": "A",
           "opp": "Berkeley OLLT (Division 2)",
           "venue": "Berkeley Sports  Club",
-          "score": null,
-          "res": null
+          "score": "16 \u2013 12",
+          "res": "W"
         }
       ]
     }
