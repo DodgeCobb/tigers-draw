@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "Sun 9 Aug 2026",
+  "lastUpdated": "Sun 16 Aug 2026",
   "teams": {
     "harrigan": {
       "name": "Harrigan Plate",
@@ -200,6 +200,18 @@
           "venue": "Ziems Park",
           "score": "4 \u2013 22",
           "res": "L"
+        },
+        {
+          "rnd": 1,
+          "rndName": "Semi Finals",
+          "date": "Sat 15 Aug",
+          "sortKey": "202608151330",
+          "time": "1:30pm",
+          "ha": "H",
+          "opp": "Taren Point Titans Open Women Tackle",
+          "venue": "Rex Jackson Oval",
+          "score": "32 \u2013 0",
+          "res": "W"
         },
         {
           "rnd": 2,
