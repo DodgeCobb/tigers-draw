@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "Sun 16 Aug 2026",
+  "lastUpdated": "Sun 23 Aug 2026",
   "teams": {
     "harrigan": {
       "name": "Harrigan Plate",
@@ -169,8 +169,8 @@
           "ha": "A",
           "opp": "Wests Devils",
           "venue": "Sid Parrish Park",
-          "score": null,
-          "res": null
+          "score": "14 \u2013 34",
+          "res": "L"
         },
         {
           "rnd": 15,
@@ -181,8 +181,8 @@
           "ha": "H",
           "opp": "Corrimal Cougars",
           "venue": "Rex Jackson Oval",
-          "score": null,
-          "res": null
+          "score": "22 \u2013 16",
+          "res": "W"
         }
       ]
     },
@@ -223,6 +223,18 @@
           "opp": "Collegians Open Womens",
           "venue": "Rex Jackson Oval",
           "score": "30 \u2013 18",
+          "res": "W"
+        },
+        {
+          "rnd": 2,
+          "rndName": "Preliminary Final",
+          "date": "Sat 22 Aug",
+          "sortKey": "202608221000",
+          "time": "10:00am",
+          "ha": "A",
+          "opp": "Collegians Open Womens",
+          "venue": "Collegians Sports Stadium",
+          "score": "20 \u2013 12",
           "res": "W"
         },
         {
