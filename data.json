@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "Sun 23 Aug 2026",
+  "lastUpdated": "Mon 31 Aug 2026",
   "teams": {
     "harrigan": {
       "name": "Harrigan Plate",
@@ -14,6 +14,18 @@
           "opp": "Collegians",
           "venue": "Collegians Sports Stadium",
           "score": "12 \u2013 32",
+          "res": "L"
+        },
+        {
+          "rnd": 1,
+          "rndName": "Elimination Finals",
+          "date": "Sat 29 Aug",
+          "sortKey": "202608291430",
+          "time": "2:30pm",
+          "ha": "A",
+          "opp": "Collegians",
+          "venue": "Collegians Sports Stadium",
+          "score": "16 \u2013 30",
           "res": "L"
         },
         {
@@ -248,6 +260,18 @@
           "venue": "Rex Jackson Oval",
           "score": "32 \u2013 16",
           "res": "W"
+        },
+        {
+          "rnd": 3,
+          "rndName": "Grand Final",
+          "date": "Sun 30 Aug",
+          "sortKey": "202608301520",
+          "time": "3:20pm",
+          "ha": "A",
+          "opp": "Corrimal OWT Gold",
+          "venue": "WIN Stadium",
+          "score": "8 \u2013 18",
+          "res": "L"
         },
         {
           "rnd": 4,
